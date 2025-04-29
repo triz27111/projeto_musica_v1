@@ -29,7 +29,7 @@ const inserirMusica = async function (musica, contentType) {
              let resultMusica = await musicaDAO.insertMusica(musica)
      
              if(resultMusica){
-                 return message.SUCESSO_CREATED_ITEM //201
+                 return message.SUCESS_CREATED_ITEM //201
              }else{
                  return message.ERROR_INTERNAL_SERVER_MODEL //500
              }

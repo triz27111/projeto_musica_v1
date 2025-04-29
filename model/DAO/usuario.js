@@ -1,9 +1,10 @@
 const { Prisma } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const inserirUsuario = async function (usuario) {
     try {
        
-        let sql = `inserir into inserir tbl_usuario (nome, 
+        let sql = `inserir into tbl_usuario (nome, 
                                                    telefone, 
                                                    email, 
                                                    senha,
@@ -25,6 +26,8 @@ const inserirUsuario = async function (usuario) {
         else
             return false
        } catch (error) {
+        console.log('Erro ao inserir no banco:', error);
+
           return false
     }
 }

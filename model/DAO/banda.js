@@ -5,44 +5,45 @@
  * Versão: 1.0
  ****************************************************************************/
 
-const { Prisma } = require("@prisma/client")
+const { PrismaClient} = require("@prisma/client")
+const prisma=new PrismaClient()
+
 
 const inserirBanda = async function (banda) {
     try {
        
-        let sql = `inserir into inserir tbl_banda (nome, 
+        let sql = `insert into tbl_banda (nome, 
                                                    pais_origem, 
-                                                   data_criacao, 
-                                                   integrantes
+                                                   data_criacao
+                                                   
                                                    )
-                                                   value
+                                                   values
                                                    (
                                                    '${banda.nome}',
                                                    '${banda.pais_origem}',
-                                                   '${banda.data_criacao}',
-                                                   '${banda.integrantes}'
+                                                   '${banda.data_criacao}'
                                                    )`
-
-        let result = await Prisma.$executeRawUnsafe(sql)
+        console.log(sql)
+        let result = await prisma.$executeRawUnsafe(sql)
 
         if(result)
             return true
         else
             return false
        } catch (error) {
+        console.log('Erro no inserirBanda (DAO):', error)
           return false
     }
 }
 
-const updateBanda = async function () {
+const updateBanda = async function (banda) {
     try {
         let sql = `update tbl_banda set nome          = '${banda.nome}',
                                         pais_origem   = '${banda.pais_origem}',
-                                        data_criacao  = '${banda.data_criacao}',
-                                        integrantes   = '${banda.integrantes}'
+                                        data_criacao  = '${banda.data_criacao}'
                                         where id      = $${banda.id}`
 
-    let result = await Prisma.$executeRawUnsafe(sql)
+    let result = await prisma.$executeRawUnsafe(sql)
 
     if(result)
         return true
@@ -53,24 +54,24 @@ const updateBanda = async function () {
     }
 }
 
-const deleteBanda = async function () {
+const deleteBanda = async function (id) {
     try {
-        let sql = `delete from tbl_banda wj=here id =${id}`
+        let sql = `DELETE FROM tbl_banda wj=here id =${id}`
 
-        let resultBanda = await Prisma.$executeRawUnsafe(sql)
+        let resultBanda = await prisma.$executeRawUnsafe(sql)
 
         if(resultBanda)
             return true
         else
         return false
-    } catch (let) {
+    } catch (error) {
         return false
     }
 }
 
 const selectAllBanda = async function () {
     try {
-         let sql = 'select * from tbl_banda order by id desc'
+         let sql = 'SELECT * FROM tbl_banda order by id desc'
 
          let result = await prisma.$queryRawUnsafe(sql)
 
@@ -85,8 +86,8 @@ const selectAllBanda = async function () {
 
 const selectByIdBanda = async function (id) {
     try {
-        let sql = `select * from tbl_banda where id = ${id}`
-        let result = await Prisma.$executeRawUnsafe(sql)
+        let sql = `SELECT * FROM tbl_banda where id = ${id}`
+        let result = await prisma.$queryRawUnsafe(sql)
 
         if(result)
             return result

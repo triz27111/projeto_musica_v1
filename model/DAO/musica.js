@@ -7,9 +7,8 @@
 
 //Import da biblioteca do prisma cliente para realizar as ações no BD(banco de dados)
 const { PrismaClient } = require("@prisma/client")
-const { Prisma } = require("@prisma/client/wasm")
+const { Prisma }       = require("@prisma/client/wasm")
 //instancia da classe do prisma client(cria um objeto)
-const prisma = new PrismaClient()
 
 //Função para inserir uma nova música
 const insertMusica = async function(musica){
