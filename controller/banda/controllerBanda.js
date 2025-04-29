@@ -5,7 +5,7 @@
  * Versão: 1.0
  ****************************************************************************/
 //Import do arquivo de mensagens e status code
-const message   = require('../../modulo/config')
+const message  = require('../../modulo/config')
 
 //Import do DAO realizar o CRUD no BD
 const bandaDAO = require('../../model/DAO/banda')
@@ -54,7 +54,7 @@ const atualizarBanda = async function (id, banda, contentType) {
                         banda.id = id
                         let resultBanda = await bandaDAO.updateBanda(banda)
                         if(resultBanda){
-                            return message.SUCESS_UPDATED_ITEM
+                            return message.SUCESS_UPDATE_ITEM
                         } else {
                             return message.ERROR_NOT_FOUND // 404
                         }
@@ -84,7 +84,7 @@ const excluirBanda = async function (id) {
                 if (resultBanda.length > 0){
                     let result = await bandaDAO.deleteBanda(id)
                     if(result)
-                        return message.SUCESS_DELETED_ITEM
+                        return message.SUCESS_DELETE_ITEM
                     else
                         return message.ERROR_INTERNAL_SERVER_MODEL //500
                 } else {

@@ -3,8 +3,6 @@ const message = require('../../modulo/config')
 const usuarioDAO = require('../../model/DAO/usuario')
 
 
-
-
 const inserirUsuario = async function (usuario, contentType) {
     try {
         if (String(contentType).toLowerCase() == 'application/json') {
@@ -77,7 +75,7 @@ const excluirUsuario = async function (id) {
                 if (resultUsuario.length > 0) {
                     let result = await usuarioDAO.deleteUsuario(id);
                     if (result)
-                        return message.SUCESS_DELETED_ITEM;
+                        return message.SUCESS_DELETE_ITEM;
                     else
                         return message.ERROR_INTERNAL_SERVER_MODEL; // 500
                 } else {

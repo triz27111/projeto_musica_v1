@@ -14,6 +14,7 @@ const inserirBanda = async function (banda) {
        
         let sql = `insert into tbl_banda (nome, 
                                                    pais_origem, 
+                                                   data_criacao,
                                                    data_criacao
                                                    
                                                    )
@@ -56,7 +57,7 @@ const updateBanda = async function (banda) {
 
 const deleteBanda = async function (id) {
     try {
-        let sql = `DELETE FROM tbl_banda wj=here id =${id}`
+        let sql = `DELETE FROM tbl_banda where id =${id}`
 
         let resultBanda = await prisma.$executeRawUnsafe(sql)
 
@@ -86,7 +87,7 @@ const selectAllBanda = async function () {
 
 const selectByIdBanda = async function (id) {
     try {
-        let sql = `SELECT * FROM tbl_banda where id = ${id}`
+        let sql = `select * from tbl_banda where id = ${id}`
         let result = await prisma.$queryRawUnsafe(sql)
 
         if(result)

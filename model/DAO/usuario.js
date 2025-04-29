@@ -1,5 +1,5 @@
 const { Prisma } = require("@prisma/client")
-const prisma = new PrismaClient()
+
 
 const inserirUsuario = async function (usuario) {
     try {
@@ -54,7 +54,7 @@ const updateUduario = async function () {
 
 const deleteUsuario = async function () {
     try {
-        let sql = `delete from tbl_usuario wj=here id =${id}`
+        let sql = `delete from tbl_usuario where id =${id}`
 
         let resultUsuario = await Prisma.$executeRawUnsafe(sql)
 
