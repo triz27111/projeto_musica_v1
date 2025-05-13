@@ -113,9 +113,6 @@ app.post('/v1/controle-musicas/banda/', cors(), bodyParserJSON, async function (
     response.json(resultBanda)
 })
 
-<<<<<<< HEAD
-=======
-
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')
     response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
@@ -135,7 +132,6 @@ app.post('/v1/controle-musicas/banda/', cors(), bodyParserJSON, async function (
     response.json(resultBanda)
 })
 
->>>>>>> 91162bdec71a0bb6e1c07992b6c9bec406a8a3d8
 app.get('/v1/controle-musicas/banda', cors(), async function (request, response) {
     let resultBanda = await controllerBanda.listarBanda()
 
@@ -172,8 +168,6 @@ app.put('/v1/controle-musicas/banda/:id', cors(), bodyParserJSON, async function
     response.json(resultBanda)
 })
 
-<<<<<<< HEAD
-=======
 // Middleware de configuração do CORS
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')
@@ -184,7 +178,6 @@ app.use((request, response, next) => {
     next()
 })
 
->>>>>>> 91162bdec71a0bb6e1c07992b6c9bec406a8a3d8
 app.post('/v1/controle-musicas/usuario/', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
     let dadosBody = request.body
@@ -230,11 +223,7 @@ app.put('/v1/controle-musicas/usuario/:id', cors(), bodyParserJSON, async functi
     response.status(resultUsuario.status_code)
     response.json(resultUsuario)
 })
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 91162bdec71a0bb6e1c07992b6c9bec406a8a3d8
 //Endpoint pesquisar e deletar musicas pelo id
 //app.delete('/v1/controle-musicas/musica/:id', )
 app.listen(8080,function(){

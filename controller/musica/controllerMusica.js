@@ -132,6 +132,20 @@ const listarMusica = async function () {
             dadosMusica.items = resultMusica.length
             dadosMusica.musics = resultMusica
 
+        for(const itemMusica of resultMusica){
+            
+            let dadosMusicaArtista = await controllerMusicaArtista.buscarArtista(itemMusica.id_musicaArtista)
+
+            itemMusica.musicaArtista = dadosMusicaArtista.musicaArtista
+
+            delete itemMusica.id_musicaArtista
+
+            let dadosArtista = await controllerMusicaArtista.buscarArtistaPorMusica(itemMusica.id)
+
+            itemMusica.artista = dadosArtista.artista
+
+            arrayMusicas.push(itemMusica)
+        }
                return dadosMusica
             }else{
             return message.ERROR_NOT_FOUND //500
@@ -164,6 +178,25 @@ const buscarMusica = async function (id) {
                         dadosMusica.status = true
                         dadosMusica.status_code = 200,
                         dadosMusica.musics = resultMusica
+            
+                        for(const itemMusica of resultMusica){
+            
+                            let dadosMusicaArtista = await controllerMusicaArtista.buscarArtista(itemMusica.id_musicaArtista)
+                
+                            itemMusica.musicaArtista = dadosMusicaArtista.musicaArtista
+                
+                            delete itemMusica.id_musicaArtista
+                
+                            arrayMusicas.push(itemMusica)
+                        }
+                    
+
+
+
+
+
+
+
                         return dadosMusica
                       }else{
                         return message.ERROR_NOT_FOUND //404

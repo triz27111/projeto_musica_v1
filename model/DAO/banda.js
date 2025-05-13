@@ -9,14 +9,12 @@ const { PrismaClient} = require("@prisma/client")
 const prisma=new PrismaClient()
 
 
-const inserirBanda = async function (banda) {
+const insertBanda = async function (banda) {
     try {
        
         let sql = `insert into tbl_banda (nome, 
                                                    pais_origem, 
-                                                   data_criacao,
                                                    data_criacao
-                                                   
                                                    )
                                                    values
                                                    (
@@ -100,7 +98,7 @@ const selectByIdBanda = async function (id) {
 }
 
 module.exports = {
-    inserirBanda,
+    insertBanda,
     updateBanda,
     deleteBanda,
     selectAllBanda,

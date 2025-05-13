@@ -1,7 +1,7 @@
 const { Prisma } = require("@prisma/client")
 
 
-const inserirUsuario = async function (usuario) {
+const insertUsuario = async function (usuario) {
     try {
        
         let sql = `inserir into tbl_usuario (nome, 
@@ -98,7 +98,7 @@ const selectByIdUsuario = async function (id) {
 }
 
 module.exports = {
-    inserirUsuario,
+    insertUsuario,
     updateUduario,
     deleteUsuario,
     selectAllUsuario,
