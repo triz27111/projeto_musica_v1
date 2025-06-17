@@ -1,4 +1,4 @@
-/***************************************************************************
+ /***************************************************************************
  * Objetivo: Criar uma API para realizar integração com banco de dados
  * Data: 11/02/2025
  * Autor: Beatriz Rodrigues
@@ -27,6 +27,11 @@ const bodyParser = require('body-parser')
 const controllerMusica = require('./controller/musica/controllerMusica')
 const controllerBanda = require('./controller/banda/controllerBanda')
 const controllerUsuario = require('./controller/usuario/controllerUsuario')
+const controllerArtista = require('./controller/controllerArtista')
+const controllerAlbum = require('./controller/controllerAlbum')
+const controllerGenero = require('./controller/controllerGenero')
+const controllerAssinatura = require('./controller/controllerAssinatura')
+const controllerPlano = require('./controller/controllerPlano')
 
 //Cria um objeto para body do tipo JSON
 const bodyParserJSON = bodyParser.json()
@@ -47,6 +52,7 @@ app.use((request, response, next)=>{
 //end-point
 //v1 - versão 1//nome do projeto/função
 
+//MUSICA
 //Endpoint para inserir uma musica
 app.post('/v1/controle-musicas/musica/', cors(),bodyParserJSON, async function(request,response) {
 
@@ -103,24 +109,7 @@ app.put(`/v1/controle-musicas/musica/:id`, cors(), bodyParserJSON, async functio
     response.json(resultMusica)
 })
 
-app.post('/v1/controle-musicas/banda/', cors(), bodyParserJSON, async function (request, response) {
-    let contentType = request.headers['content-type']
-    let dadosBody = request.body
-
-    let resultBanda = await controllerBanda.inserirBanda(dadosBody, contentType)
-
-    response.status(resultBanda.status_code)
-    response.json(resultBanda)
-})
-
-app.use((request, response, next) => {
-    response.header('Access-Control-Allow-Origin', '*')
-    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-
-    app.use(cors())
-
-    next()
-})
+//BANDA
 
 app.post('/v1/controle-musicas/banda/', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
@@ -167,16 +156,7 @@ app.put('/v1/controle-musicas/banda/:id', cors(), bodyParserJSON, async function
     response.status(resultBanda.status_code)
     response.json(resultBanda)
 })
-
-// Middleware de configuração do CORS
-app.use((request, response, next) => {
-    response.header('Access-Control-Allow-Origin', '*')
-    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-
-    app.use(cors())
-
-    next()
-})
+///USUARIO
 
 app.post('/v1/controle-musicas/usuario/', cors(), bodyParserJSON, async function (request, response) {
     let contentType = request.headers['content-type']
@@ -223,6 +203,197 @@ app.put('/v1/controle-musicas/usuario/:id', cors(), bodyParserJSON, async functi
     response.status(resultUsuario.status_code)
     response.json(resultUsuario)
 })
+
+// ARTISTA
+app.post('/v1/controle-musicas/artista/', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultArtista = await controllerArtista.inserirArtista(dadosBody, contentType)
+
+    response.status(resultArtista.status_code)
+    response.json(resultArtista)
+})
+
+app.get('/v1/controle-musicas/artista', cors(), async function(request, response) {
+    let resultArtista = await controllerArtista.listarArtistas()
+
+    response.status(resultArtista.status_code)
+    response.json(resultArtista)
+})
+
+app.get('/v1/controle-musicas/artista/:id', cors(), async function(request, response) {
+    let idArtista = request.params.id
+
+    let resultArtista = await controllerArtista.buscarArtista(idArtista)
+
+    response.status(resultArtista.status_code)
+    response.json(resultArtista)
+})
+
+app.delete('/v1/controle-musicas/artista/:id', cors(), async function(request, response) {
+    let idArtista = request.params.id
+
+    let resultArtista = await controllerArtista.excluirArtista(idArtista)
+
+    response.status(resultArtista.status_code)
+    response.json(resultArtista)
+})
+
+app.put('/v1/controle-musicas/artista/:id', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let idArtista = request.params.id
+    let dadosBody = request.body
+
+    let resultArtista = await controllerArtista.atualizarArtista(idArtista, dadosBody, contentType)
+
+    response.status(resultArtista.status_code)
+    response.json(resultArtista)
+})
+
+// GENERO
+app.post('/v1/controle-musicas/genero/', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultGenero = await controllerGenero.inserirGenero(dadosBody, contentType)
+
+    response.status(resultGenero.status_code)
+    response.json(resultGenero)
+})
+
+app.get('/v1/controle-musicas/genero', cors(), async function(request, response) {
+    let resultGenero = await controllerGenero.listarGeneros()
+
+    response.status(resultGenero.status_code)
+    response.json(resultGenero)
+})
+
+app.get('/v1/controle-musicas/genero/:id', cors(), async function(request, response) {
+    let idGenero = request.params.id
+
+    let resultGenero = await controllerGenero.buscarGenero(idGenero)
+
+    response.status(resultGenero.status_code)
+    response.json(resultGenero)
+})
+
+app.delete('/v1/controle-musicas/genero/:id', cors(), async function(request, response) {
+    let idGenero = request.params.id
+
+    let resultGenero = await controllerGenero.excluirGenero(idGenero)
+
+    response.status(resultGenero.status_code)
+    response.json(resultGenero)
+})
+
+app.put('/v1/controle-musicas/genero/:id', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let idGenero = request.params.id
+    let dadosBody = request.body
+
+    let resultGenero = await controllerGenero.atualizarGenero(idGenero, dadosBody, contentType)
+
+    response.status(resultGenero.status_code)
+    response.json(resultGenero)
+})
+
+
+// ASSINATURA
+app.post('/v1/controle-musicas/assinatura/', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultAssinatura = await controllerAssinatura.inserirAssinatura(dadosBody, contentType)
+
+    response.status(resultAssinatura.status_code)
+    response.json(resultAssinatura)
+})
+
+app.get('/v1/controle-musicas/assinatura', cors(), async function(request, response) {
+    let resultAssinatura = await controllerAssinatura.listarAssinaturas()
+
+    response.status(resultAssinatura.status_code)
+    response.json(resultAssinatura)
+})
+
+app.get('/v1/controle-musicas/assinatura/:id', cors(), async function(request, response) {
+    let idAssinatura = request.params.id
+
+    let resultAssinatura = await controllerAssinatura.buscarAssinatura(idAssinatura)
+
+    response.status(resultAssinatura.status_code)
+    response.json(resultAssinatura)
+})
+
+app.delete('/v1/controle-musicas/assinatura/:id', cors(), async function(request, response) {
+    let idAssinatura = request.params.id
+
+    let resultAssinatura = await controllerAssinatura.excluirAssinatura(idAssinatura)
+
+    response.status(resultAssinatura.status_code)
+    response.json(resultAssinatura)
+})
+
+app.put('/v1/controle-musicas/assinatura/:id', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let idAssinatura = request.params.id
+    let dadosBody = request.body
+
+    let resultAssinatura = await controllerAssinatura.atualizarAssinatura(idAssinatura, dadosBody, contentType)
+
+    response.status(resultAssinatura.status_code)
+    response.json(resultAssinatura)
+})
+
+
+// PLANO
+app.post('/v1/controle-musicas/plano/', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultPlano = await controllerPlano.inserirPlano(dadosBody, contentType)
+
+    response.status(resultPlano.status_code)
+    response.json(resultPlano)
+})
+
+app.get('/v1/controle-musicas/plano', cors(), async function(request, response) {
+    let resultPlano = await controllerPlano.listarPlanos()
+
+    response.status(resultPlano.status_code)
+    response.json(resultPlano)
+})
+
+app.get('/v1/controle-musicas/plano/:id', cors(), async function(request, response) {
+    let idPlano = request.params.id
+
+    let resultPlano = await controllerPlano.buscarPlano(idPlano)
+
+    response.status(resultPlano.status_code)
+    response.json(resultPlano)
+})
+
+app.delete('/v1/controle-musicas/plano/:id', cors(), async function(request, response) {
+    let idPlano = request.params.id
+
+    let resultPlano = await controllerPlano.excluirPlano(idPlano)
+
+    response.status(resultPlano.status_code)
+    response.json(resultPlano)
+})
+
+app.put('/v1/controle-musicas/plano/:id', cors(), bodyParserJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
+    let idPlano = request.params.id
+    let dadosBody = request.body
+
+    let resultPlano = await controllerPlano.atualizarPlano(idPlano, dadosBody, contentType)
+
+    response.status(resultPlano.status_code)
+    response.json(resultPlano)
+})
+
 
 //Endpoint pesquisar e deletar musicas pelo id
 //app.delete('/v1/controle-musicas/musica/:id', )

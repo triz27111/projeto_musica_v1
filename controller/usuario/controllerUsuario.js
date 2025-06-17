@@ -12,21 +12,21 @@ const inserirUsuario = async function (usuario, contentType) {
                 usuario.senha            == '' || usuario.senha            == null || usuario.senha            == undefined || usuario.senha.length > 100 ||
                 usuario.tipo_assinatura  == '' || usuario.tipo_assinatura  == null || usuario.tipo_assinatura  == undefined || usuario.tipo_assinatura.length > 50
             ) {
-                return message.ERROR_REQUIRE_FIELDS; // 400
+                return message.ERROR_REQUIRE_FIELDS // 400
             } else {
                 let resultUsuario = await usuarioDAO.insertUsuario(usuario);
 
                 if (resultUsuario) {
-                    return message.SUCESS_CREATED_ITEM; // 201
+                    return message.SUCESS_CREATED_ITEM // 201
                 } else {
-                    return message.ERROR_INTERNAL_SERVER_MODEL; // 500
+                    return message.ERROR_INTERNAL_SERVER_MODEL // 500
                 }
             }
         } else {
-            return message.ERROR_CONTENT_TYPE; // 415
+            return message.ERROR_CONTENT_TYPE // 415
         }
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER; // 500
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
 };
 
@@ -40,7 +40,7 @@ const atualizarUsuario = async function (id, usuario, contentType) {
                 usuario.tipo_assinatura  == '' || usuario.tipo_assinatura  == null || usuario.tipo_assinatura  == undefined || usuario.tipo_assinatura.length > 50 ||
                 id == '' || id == undefined || id == null || isNaN(id)
             ) {
-                return message.ERROR_REQUIRE_FIELDS; // 400
+                return message.ERROR_REQUIRE_FIELDS // 400
             } else {
                 let result = await usuarioDAO.selectByIdUsuario(id);
 
@@ -49,9 +49,9 @@ const atualizarUsuario = async function (id, usuario, contentType) {
                         usuario.id = id;
                         let resultUsuario = await usuarioDAO.updateUsuario(usuario);
                         if (resultUsuario) {
-                            return message.SUCESS_UPDATED_ITEM;
+                            return message.SUCESS_UPDATE_ITEM
                         } else {
-                            return message.ERROR_NOT_FOUND; // 404
+                            return message.ERROR_NOT_FOUND // 404
                         }
                     }
                 }
@@ -67,76 +67,76 @@ const atualizarUsuario = async function (id, usuario, contentType) {
 const excluirUsuario = async function (id) {
     try {
         if (id == '' || id == undefined || id == null || isNaN(id)) {
-            return message.ERROR_REQUIRE_FIELDS; // 400
+            return message.ERROR_REQUIRE_FIELDS // 400
         } else {
-            let resultUsuario = await usuarioDAO.selectByIdUsuario(id);
+            let resultUsuario = await usuarioDAO.selectByIdUsuario(id)
 
             if (resultUsuario != false && typeof (resultUsuario) == 'object') {
                 if (resultUsuario.length > 0) {
-                    let result = await usuarioDAO.deleteUsuario(id);
+                    let result = await usuarioDAO.deleteUsuario(id)
                     if (result)
-                        return message.SUCESS_DELETE_ITEM;
+                        return message.SUCESS_DELETE_ITEM
                     else
-                        return message.ERROR_INTERNAL_SERVER_MODEL; // 500
+                        return message.ERROR_INTERNAL_SERVER_MODEL // 500
                 } else {
                     return message.ERROR_NOT_FOUND; // 404
                 }
             } else {
-                return message.ERROR_INTERNAL_SERVER_MODEL; // 500
+                return message.ERROR_INTERNAL_SERVER_MODEL // 500
             }
         }
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER; // 500
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
 };
 
 const listarUsuario = async function () {
     try {
         let dadosUsuario = {};
-        let resultUsuario = await usuarioDAO.selectAllUsuario();
+        let resultUsuario = await usuarioDAO.selectAllUsuario()
 
         if (resultUsuario != false && typeof (resultUsuario) == 'object') {
             if (resultUsuario.length > 0) {
-                dadosUsuario.status = true;
-                dadosUsuario.status_code = 200;
-                dadosUsuario.items = resultUsuario.length;
-                dadosUsuario.usuarios = resultUsuario;
+                dadosUsuario.status = true
+                dadosUsuario.status_code = 200
+                dadosUsuario.items = resultUsuario.length
+                dadosUsuario.usuarios = resultUsuario
 
-                return dadosUsuario;
+                return dadosUsuario
             } else {
-                return message.ERROR_NOT_FOUND; // 404
+                return message.ERROR_NOT_FOUND // 404
             }
         } else {
-            return message.ERROR_INTERNAL_SERVER_MODEL; // 500
+            return message.ERROR_INTERNAL_SERVER_MODEL // 500
         }
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER; // 500
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
 };
 
 const buscarUsuario = async function (id) {
     try {
         if (id == '' || id == undefined || id == null || isNaN(id)) {
-            return message.ERROR_REQUIRE_FIELDS; // 400
+            return message.ERROR_REQUIRE_FIELDS // 400
         } else {
-            let dadosUsuario = {};
+            let dadosUsuario = {}
             let resultUsuario = await usuarioDAO.selectByIdUsuario(id);
 
             if (resultUsuario != false && typeof (resultUsuario) == 'object') {
                 if (resultUsuario.length > 0) {
-                    dadosUsuario.status = true;
-                    dadosUsuario.status_code = 200;
-                    dadosUsuario.usuarios = resultUsuario;
-                    return dadosUsuario;
+                    dadosUsuario.status = true
+                    dadosUsuario.status_code = 200
+                    dadosUsuario.usuarios = resultUsuario
+                    return dadosUsuario
                 } else {
                     return message.ERROR_NOT_FOUND; // 404
                 }
             } else {
-                return message.ERROR_INTERNAL_SERVER_MODEL; // 500
+                return message.ERROR_INTERNAL_SERVER_MODEL // 500
             }
         }
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER; // 500
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
 };
 

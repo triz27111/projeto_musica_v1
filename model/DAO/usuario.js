@@ -32,7 +32,7 @@ const insertUsuario = async function (usuario) {
     }
 }
 
-const updateUduario = async function () {
+const updateUsuario = async function () {
     try {
         let sql = `update tbl_usuario set nome          = '${usuario.nome}',
                                         telefone        = '${usuario.telefone}',
@@ -99,7 +99,7 @@ const selectByIdUsuario = async function (id) {
 
 module.exports = {
     insertUsuario,
-    updateUduario,
+    updateUsuario,
     deleteUsuario,
     selectAllUsuario,
     selectByIdUsuario
